@@ -1,2 +1,2 @@
 # Sistem Programlama
-Sistem Programlama dersinin notlarını içeren repo.
+Sistem Programlama dersi notlarını içeren repo.
