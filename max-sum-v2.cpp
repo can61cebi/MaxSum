@@ -6,9 +6,9 @@ using namespace std;
 
 int main() {
 
-    random_device rd; // obtain a random number from hardware
-    mt19937 gen(rd()); // seed the generator
-    uniform_real_distribution<> distr(1000000, 10000000); // define the range
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_real_distribution<> distr(1000000, 10000000);
 
     float arr[1000000];
 
@@ -17,11 +17,6 @@ int main() {
         }
     
     int n = sizeof(arr) / sizeof(arr[0]);
- 
-    // Print the array
-    /*cout << "Array: ";
-    for (int i = 0; i < n; i++)
-        cout << arr[i] << " ";*/
 
     float sum = 0;
 
@@ -31,14 +26,14 @@ int main() {
     }
     
     float avg = sum / n;
-    cout << "\nortalama (bolme islemiyle): " << avg;
+    cout << "Ortalama (bolme islemiyle): " << avg;
 
     float sumfunc = accumulate(arr, arr + n, 0.0f);
     float avgfunc = sumfunc/n;
 
-    cout << "\nortalama (fonksiyonla): " << avgfunc;
+    cout << "\nOrtalama (fonksiyonla): " << avgfunc;
 
-    cout << "\narray'in boyutu: " << n << "\n";
+    cout << "\nArray'in boyutu: " << n << "\n";
 
     float onetoavg;
 
@@ -49,4 +44,5 @@ int main() {
     
     cout << "1'den ortalamaya kadar olan sayıların toplamı (1 eklemeli): " << onetoavg << "\n";
 
+    return 0;
 }
