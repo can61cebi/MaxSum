@@ -7,74 +7,65 @@ using namespace std;
 
 void func1() {
 
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_real_distribution<> distr(10000, 20000);
+    srand(static_cast<unsigned int>(time(nullptr)));
 
-    float arr[10000];
+    float arr[10000000] = {0};
 
-    for(int n=0; n<10000; ++n) {
-        arr[n] = distr(gen);
-        }
+    for(int n = 0; n < 1000000; ++n) {
+        arr[n] = 1000000 + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 90000000));
+    }
     
     int n = sizeof(arr) / sizeof(arr[0]);
     float max = *max_element(arr, arr + n);
     int maxrounded = round(max);
 
-    cout << "v1\nMax Element = " << max;
+    cout << "\nv1\nMax Element = " << max;
 
     float total = 0;
 
-    for (int k = 0; k < 10000; k++)
-    {
-        total+=arr[k];
+    for (int k = 0; k < 10000; k++) {
+        total += arr[k];
     }
 
-    cout << "\n1'den max degere kadar olan toplam = " << (maxrounded*maxrounded+1)/2;
+    cout << "\n1'den Max degere kadar olan toplam = " << (maxrounded * (maxrounded + 1)) / 2;
 
-    cout << "\nToplam: " << total << "\n\n";
+    cout << "\nToplam: " << total << "\n";
     
 }
 
 void func2() {
 
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_real_distribution<> distr(1000000, 10000000);
+    srand(static_cast<unsigned int>(time(nullptr)));
 
-    float arr[1000000];
+    float arr[10000000] = {0};
 
-    for(int n=0; n<1000000; ++n) {
-        arr[n] = distr(gen);
-        }
+    for(int n = 0; n < 1000000; ++n) {
+        arr[n] = 1000000 + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 90000000));
+    }
     
     int n = sizeof(arr) / sizeof(arr[0]);
 
     float sum = 0;
 
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         sum = sum + arr[i];
     }
     
     float avg = sum / n;
-    cout << "v2\nOrtalama (bolme islemiyle): " << avg;
+    cout << "\nv2\nOrtalama (bolme islemiyle): " << avg;
 
     float sumfunc = accumulate(arr, arr + n, 0.0f);
-    float avgfunc = sumfunc/n;
+    float avgfunc = sumfunc / n;
 
     cout << "\nOrtalama (fonksiyonla): " << avgfunc;
 
-    cout << "\nArray'in boyutu: " << n << "\n";
+    float onetoavg = 0;
 
-    float onetoavg;
-
-    for (int i = 0; i < avgfunc; i++)
-    {
-        onetoavg += 1;
+    for (int i = 1; i <= avgfunc; i++) {
+        onetoavg += i;
     }
     
-    cout << "1'den ortalamaya kadar olan sayıların toplamı (1 eklemeli): " << onetoavg << "\n\n";
+    cout << "1'den Ortalamaya kadar olan sayıların toplamı (1 eklemeli): " << onetoavg << "\n";
 
 }
 
