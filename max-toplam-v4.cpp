@@ -72,7 +72,7 @@ void func2() {
     for (int i = 1; i <= avgfunc; i++) {
         onetoavg += i;
     }
-
+//test
 }
 
 int main() {
