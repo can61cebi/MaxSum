@@ -3,13 +3,14 @@
 #include <algorithm>
 #include <cstdlib>
 #include <numeric>
+#include <ctime>
 
 using namespace std;
 
 void func1() {
     srand(static_cast<unsigned int>(time(nullptr)));
 
-    int* arr = (int*)malloc(100000000 * sizeof(int));
+    int* arr = (int*)malloc(10000000 * sizeof(int));
 
     for(int n = 0; n < 10000000; ++n) {
         arr[n] = 1000000 + static_cast<int>(rand()) / (static_cast<int>(RAND_MAX / 9000000));
@@ -19,7 +20,7 @@ void func1() {
     int max = *max_element(arr, arr + n);
     int maxrounded = round(max);
 
-    int total = 0;
+    long long total = 0;
 
     for (int k = 0; k < n; k++) {
         total += arr[k];
@@ -29,8 +30,6 @@ void func1() {
 }
 
 void func2() {
-    srand(static_cast<unsigned int>(time(nullptr)));
-
     int* arr = (int*)malloc(10000000 * sizeof(int));
 
     for(int n = 0; n < 10000000; ++n) {
@@ -60,6 +59,7 @@ void func2() {
 }
 
 int main() {
+    srand(static_cast<unsigned int>(time(nullptr)));
     for (int i = 0; i < 100; i++) {
         func1();
         func2();
