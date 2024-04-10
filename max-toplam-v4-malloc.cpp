@@ -9,7 +9,7 @@ using namespace std;
 void func1() {
     srand(static_cast<unsigned int>(time(nullptr)));
 
-    int* arr = (int*)malloc(100000000 * sizeof(int));
+    int* arr = (int*)malloc(10000000 * sizeof(int));
 
     for(int n = 0; n < 10000000; ++n) {
         arr[n] = 1000000 + static_cast<int>(rand()) / (static_cast<int>(RAND_MAX / 9000000));
