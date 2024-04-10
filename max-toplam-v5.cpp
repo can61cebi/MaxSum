@@ -16,13 +16,12 @@ void func1() {
         arr[n] = 1000000 + static_cast<int>(rand()) / (static_cast<int>(RAND_MAX / 9000000));
     }
 
-    int n = 10000000;
-    int max = *max_element(arr, arr + n);
+    int max = *max_element(arr, arr + 10000000);
     int maxrounded = round(max);
 
     long long total = 0;
 
-    for (int k = 0; k < n; k++) {
+    for (int k = 0; k < 10000000; k++) {
         total += arr[k];
     }
 
@@ -36,18 +35,16 @@ void func2() {
         arr[n] = 1000000 + static_cast<int>(rand()) / (static_cast<int>(RAND_MAX / 9000000));
     }
 
-    int n = 10000000;
-
     long long sum = 0;
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < 10000000; i++) {
         sum += arr[i];
     }
 
-    int avg = sum / n;
+    int avg = sum / 10000000;
 
-    long long sumfunc = accumulate(arr, arr + n, 0LL);
-    int avgfunc = sumfunc / n;
+    long long sumfunc = accumulate(arr, arr + 10000000, 0LL);
+    int avgfunc = sumfunc / 10000000;
 
     long long onetoavg = 0;
 
