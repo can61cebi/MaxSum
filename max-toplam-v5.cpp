@@ -1,62 +1,65 @@
 #include <iostream>
+#include <random>
+#include <algorithm>
 #include <vector>
 #include <thread>
 #include <numeric>
-#include <algorithm>
-#include <cmath>
-#include <random>
-#include <mutex>
 
 using namespace std;
 
-const int DATA_SIZE = 10000000;
-const int NUM_THREADS = 11;
-std::mutex mtx;
+const int DIZI_BOYUT = 10000000;
+const int THREAD_SAYI = 8;
+const int FONKSIYON_TEKRAR = 100;
 
-void islem(int thread_id, long long& yuvarlanmis_sayi, long long& toplam, long long& total_onetoavg) {
-    std::mt19937 generator(static_cast<unsigned int>(time(nullptr)) + thread_id);
-    std::uniform_int_distribution<int> distribution(1000000, 10000000 - 1);
+void func1() {
+    mt19937 gen(random_device{}());
+    uniform_int_distribution<> dis(1000000, 9999999);
 
-    vector<int> data(DATA_SIZE / NUM_THREADS);
-    long long local_sum = 0;
-    int local_max = 0;
-
-    for (int& val : data) {
-        val = distribution(generator);
-        local_sum += val;
-        local_max = max(local_max, val);
+    vector<int> arr(DIZI_BOYUT);
+    for (int& n : arr) {
+        n = dis(gen);
     }
 
-    std::lock_guard<std::mutex> guard(mtx);
-    yuvarlanmis_sayi = max(yuvarlanmis_sayi, static_cast<long long>(round(local_max)));
-    toplam += local_sum;
+    int max = *max_element(arr.begin(), arr.end());
+    int maxrounded = round(max);
 
-    long long avg = toplam / DATA_SIZE;
-    total_onetoavg = (avg * (avg + 1)) / 2;
+    long long total = accumulate(arr.begin(), arr.end(), 0LL);
+}
+
+void func2() {
+    mt19937 gen(random_device{}());
+    uniform_int_distribution<> dis(1000000, 9999999);
+
+    vector<int> arr(DIZI_BOYUT);
+    for (int& n : arr) {
+        n = dis(gen);
+    }
+
+    long long sum = accumulate(arr.begin(), arr.end(), 0LL);
+    int avg = sum / DIZI_BOYUT;
+
+    long long onetoavg = 0;
+    for (int i = 1; i <= avg; i++) {
+        onetoavg += i;
+    }
+}
+
+void thread_islem(int numCalls, void (*func)()) {
+    for (int i = 0; i < numCalls; i++) {
+        func();
+    }
 }
 
 int main() {
-    long long yuvarlanmis_sayi = 0, toplam = 0, ilkden_orta_toplam = 0;
+    vector<thread> threads;
 
-    for (int i = 0; i < 100; ++i) {
-        vector<thread> threads;
+    for (int i = 0; i < THREAD_SAYI; i++) {
+        threads.emplace_back(thread_islem, FONKSIYON_TEKRAR / THREAD_SAYI, func1);
+        threads.emplace_back(thread_islem, FONKSIYON_TEKRAR / THREAD_SAYI, func2);
+    }
 
-        for (int t = 0; t < NUM_THREADS; ++t) {
-            threads.emplace_back(islem, t, ref(yuvarlanmis_sayi), ref(toplam), ref(ilkden_orta_toplam));
-        }
-
-        for (auto& th : threads) {
-            th.join();
-        }
-
-        cout << i + 1 << ". islem"
-             << ": En buyuk (Yuvarlanmis) = " << yuvarlanmis_sayi
-             << ", Toplam = " << toplam
-             << ", 1'den ortalamaya kadar toplam = " << ilkden_orta_toplam << endl;
-
-        yuvarlanmis_sayi = 0;
-        toplam = 0;
-        ilkden_orta_toplam = 0;
+    for (auto& th : threads) {
+        th.join();
     }
 
     return 0;
