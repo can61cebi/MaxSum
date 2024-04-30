@@ -9,7 +9,7 @@
 using namespace std;
 
 const int DIZI_BOYUT = 100000000;
-const int THREAD_SAYI = 10;
+const int THREAD_SAYI = 8;
 const int FONKSIYON_TEKRAR = 100;
 
 std::mutex mtx;
