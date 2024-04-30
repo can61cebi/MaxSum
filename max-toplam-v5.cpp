@@ -44,8 +44,8 @@ void func2() {
     }
 }
 
-void thread_islem(int numCalls, void (*func)()) {
-    for (int i = 0; i < numCalls; i++) {
+void thread_islem(int adet, void (*func)()) {
+    for (int i = 0; i < adet; i++) {
         func();
     }
 }
