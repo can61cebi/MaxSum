@@ -7,8 +7,8 @@
 
 using namespace std;
 
-const int DIZI_BOYUT = 100000000;
-const int THREAD_SAYI = 8;
+const int DIZI_BOYUT = 10000000;
+const int THREAD_SAYI = 12;
 const int FONKSIYON_TEKRAR = 100;
 
 void func1() {
