@@ -8,8 +8,8 @@
 
 using namespace std;
 
-const int DIZI_BOYUT = 100000000;
-const int THREAD_SAYI = 8;
+const int DIZI_BOYUT = 10000000;
+const int THREAD_SAYI = 12;
 const int FONKSIYON_TEKRAR = 100;
 
 std::mutex mtx;
@@ -66,8 +66,8 @@ int main() {
     vector<thread> threads;
 
     for (int i = 0; i < THREAD_SAYI; i++) {
-        threads.emplace_back(run_thread, FONKSIYON_TEKRAR / THREAD_SAYI, func1);
-        threads.emplace_back(run_thread, FONKSIYON_TEKRAR / THREAD_SAYI, func2);
+        threads.emplace_back(thread_islem, FONKSIYON_TEKRAR / THREAD_SAYI, func1);
+        threads.emplace_back(thread_islem, FONKSIYON_TEKRAR / THREAD_SAYI, func2);
     }
 
     for (auto& th : threads) {
